@@ -1,6 +1,9 @@
 plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
+    id "com.android.application"
+    id "org.jetbrains.kotlin.kapt"
+    id "kotlin-android"
+    id "kotlinx-serialization"
+    id "dagger.hilt.android.plugin"
 }
 
 android {
@@ -11,7 +14,7 @@ android {
         minSdk 21
         targetSdk 31
         versionCode 1
-        versionName "1.0"
+        versionName "0.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -22,7 +25,7 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
         }
     }
     compileOptions {
@@ -30,7 +33,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = "1.8"
         useIR = true
     }
     buildFeatures {
@@ -38,28 +41,64 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion compose_version
-        kotlinCompilerVersion '1.5.21'
     }
     packagingOptions {
         resources {
-            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+            excludes +=("/META-INF/{AL2.0,LGPL2.1}")
         }
     }
 }
 
 dependencies {
+    // core
+    implementation("androidx.core:core-ktx:1.6.0")
+    implementation("androidx.appcompat:appcompat:1.3.1")
+    implementation("androidx.activity:activity-compose:1.3.1") {
+        because("we want to make the UI reactive using jetpack compose")
+    }
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.3.1") {
+        because("we want to use ViewModels and other components tied to the app's lifecycler")
+    }
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0-rc01")
+    implementation("androidx.navigation:navigation-compose:2.4.0-alpha10") {
+        because("we want to use jetpack navigation to handle switching between screens")
+    }
 
-    implementation 'androidx.core:core-ktx:1.6.0'
-    implementation 'androidx.appcompat:appcompat:1.3.1'
-    implementation 'com.google.android.material:material:1.4.0'
-    implementation "androidx.compose.ui:ui:$compose_version"
-    implementation "androidx.compose.material:material:$compose_version"
-    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
-    implementation 'androidx.activity:activity-compose:1.3.1'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
+    // di
+    implementation("com.google.dagger:hilt-android:$hilt_version") {
+        because("we want to use hilt to handle automated dependency injection")
+    }
+    kapt("com.google.dagger:hilt-compiler:$hilt_version")
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0-alpha03")
+
+    // data
+    implementation("androidx.room:room-runtime:$room_version"){
+        because("we want to make the app be usable offline, using room as persistance library")
+    }
+    kapt("androidx.room:room-compiler:$room_version")
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.2.1") {
+        because("we want to make date/time manipulation easy(er)")
+    }
+
+    // ui
+    implementation("androidx.compose.ui:ui:$compose_version")
+    implementation("androidx.compose.ui:ui-tooling-preview:$compose_version")
+    implementation("com.google.android.material:material:1.4.0")
+    implementation("androidx.compose.material:material:$compose_version")
+    implementation("androidx.compose.material:material-icons-extended:$compose_version"){
+        because("some icons that we want to use are not included in the base set")
+    }
+    implementation("io.coil-kt:coil-compose:1.4.0") {
+        because("we want to use coil as image loader")
+    }
+    implementation("com.google.accompanist:accompanist-navigation-animation:$accompanist_version") {
+        because("animated transitions between screens are yet not supported in jetpack compose navigation")
+    }
+
+    // test
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.3")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:$compose_version")
+    debugImplementation("androidx.compose.ui:ui-tooling:$compose_version")
 }
