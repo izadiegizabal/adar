@@ -12,11 +12,11 @@ import androidx.navigation.NavController
 import xyz.izadi.adar.utils.goToDashboard
 
 @Composable
-fun AccountScreen(vm: AccountViewModel = hiltViewModel(), navController: NavController) {
+fun AccountScreen(vm: AccountViewModel = hiltViewModel(), navController: NavController, accountId: Int?) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         item {
             Column {
-                Text(text = "This is the account screen!")
+                Text(text = "This is the account $accountId screen!")
                 Button(onClick = { navController.goToDashboard() }) {
                     Text(text = "Go To Dashboard")
                 }

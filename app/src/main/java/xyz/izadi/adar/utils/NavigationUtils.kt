@@ -1,23 +1,12 @@
 package xyz.izadi.adar.utils
 
 import androidx.navigation.NavController
-import androidx.navigation.NavGraph.Companion.findStartDestination
-import xyz.izadi.adar.domain.constants.Routes
+import xyz.izadi.adar.domain.entity.Routes
 
-fun NavController.goToAccount() {
-    navigate(Routes.Account) {
-        popUpTo(graph.findStartDestination().id) {
-            saveState = true
-        }
-        restoreState = true
-    }
+fun NavController.goToAccount(id: Int) {
+    navigate(Routes.Account(id).getFullPath())
 }
 
 fun NavController.goToDashboard() {
-    navigate(Routes.Dashboard) {
-        popUpTo(graph.findStartDestination().id) {
-            saveState = true
-        }
-        restoreState = true
-    }
+    navigate(Routes.Dashboard.getFullPath())
 }
