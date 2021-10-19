@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import xyz.izadi.adar.domain.entity.Account
-import xyz.izadi.adar.domain.usecase.Result
+import xyz.izadi.adar.domain.entity.Result
 import xyz.izadi.adar.ui.components.AccountInfoRow
 import xyz.izadi.adar.utils.goToAccount
 
@@ -42,7 +42,7 @@ fun DashboardScreen(vm: DashboardViewModel = hiltViewModel(), navController: Nav
                 CircularProgressIndicator()
             }
             else -> item {
-                Text(text = "Error loading accounts")
+                Text(text = "Error loading accounts: ${(accounts as? Result.Error)?.exception?.message}")
             }
         }
     }

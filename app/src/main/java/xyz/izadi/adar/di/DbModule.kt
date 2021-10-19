@@ -25,4 +25,8 @@ class DbModule {
     @Singleton
     @Provides
     fun providesAccountsDao(db: AdarDb) = db.accountsDao()
+
+    @Singleton
+    @Provides
+    fun providesTransactionsDao(db: AdarDb) = db.transactionsDao()
 }
