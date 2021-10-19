@@ -9,6 +9,7 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -22,7 +23,12 @@ import xyz.izadi.adar.utils.goToDashboard
 @ExperimentalMaterialApi
 @Composable
 fun AccountScreen(vm: AccountViewModel = hiltViewModel(), navController: NavController, accountId: Int?) {
-    vm.updateAccountId(accountId)
+
+    accountId?.let {
+        LaunchedEffect(it) {
+            vm.updateAccountId(it)
+        }
+    }
 
     val accountWithTransactions by vm.accountWithTransactions.collectAsState()
 
