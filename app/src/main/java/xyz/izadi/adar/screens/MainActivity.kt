@@ -3,7 +3,10 @@ package xyz.izadi.adar.screens
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeOut
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -33,7 +36,9 @@ fun MainScreen() {
     val navController = rememberAnimatedNavController()
     AnimatedNavHost(
         navController = navController,
-        startDestination = Routes.Dashboard.getFullPath()
+        startDestination = Routes.Dashboard.getFullPath(),
+        enterTransition = { _, _ -> slideIntoContainer(AnimatedContentScope.SlideDirection.Up, animationSpec = tween(400)) },
+        exitTransition = { _, _ -> slideOutOfContainer(AnimatedContentScope.SlideDirection.Down, animationSpec = tween(400)) + fadeOut(animationSpec = tween(durationMillis = 50, delayMillis = 370)) }
     ) {
         composable(Routes.Dashboard.getFullPath()) { DashboardScreen(navController = navController) }
         composable(
@@ -41,7 +46,8 @@ fun MainScreen() {
             arguments = Routes.Account().getArguments()
         ) { backStackEntry ->
             val id = backStackEntry.arguments?.getInt(Routes.Account.ARGUMENT_ID)
-            AccountScreen(navController = navController, accountId = id)
+            val name = backStackEntry.arguments?.getString(Routes.Account.ARGUMENT_NAME)
+            AccountScreen(navController = navController, accountId = id, accountName = name)
         }
     }
 }

@@ -13,7 +13,7 @@ import xyz.izadi.adar.domain.entity.Account
 
 @ExperimentalMaterialApi
 @Composable
-fun AccountInfoRow(modifier: Modifier = Modifier, account: Account) {
+fun AccountListItem(modifier: Modifier = Modifier, account: Account) {
     ListItem(
         modifier = modifier,
         text = { Text(text = account.name) },
@@ -28,9 +28,9 @@ fun AccountInfoRow(modifier: Modifier = Modifier, account: Account) {
 @ExperimentalMaterialApi
 @Preview
 @Composable
-fun AccountInfoRowPreview() {
+fun AccountListItemPreview() {
     Surface {
-        AccountInfoRow(
+        AccountListItem(
             account = AccountImpl(
                 id = 1,
                 name = "外貨普通(USD)",

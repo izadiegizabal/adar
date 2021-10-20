@@ -1,6 +1,8 @@
 package xyz.izadi.adar.domain.entity
 
-interface Account {
+import java.io.Serializable
+
+interface Account : Serializable {
     val id: Int
     val name: String
     val institution: String
