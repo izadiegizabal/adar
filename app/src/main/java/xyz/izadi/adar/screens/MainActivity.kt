@@ -9,6 +9,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeOut
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
+import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
@@ -16,6 +17,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import xyz.izadi.adar.domain.entity.Routes
 import xyz.izadi.adar.screens.account.AccountScreen
 import xyz.izadi.adar.screens.dashboard.DashboardScreen
+import xyz.izadi.adar.ui.components.Base
+import xyz.izadi.adar.ui.theme.AdarTheme
 
 @ExperimentalMaterialApi
 @ExperimentalAnimationApi
@@ -24,7 +27,13 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MainScreen()
+            AdarTheme {
+                ProvideWindowInsets {
+                    Base {
+                        MainScreen()
+                    }
+                }
+            }
         }
     }
 }
@@ -37,8 +46,8 @@ fun MainScreen() {
     AnimatedNavHost(
         navController = navController,
         startDestination = Routes.Dashboard.getFullPath(),
-        enterTransition = { _, _ -> slideIntoContainer(AnimatedContentScope.SlideDirection.Up, animationSpec = tween(400)) },
-        exitTransition = { _, _ -> slideOutOfContainer(AnimatedContentScope.SlideDirection.Down, animationSpec = tween(400)) + fadeOut(animationSpec = tween(durationMillis = 50, delayMillis = 370)) }
+        enterTransition = { _, _ -> slideIntoContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(400)) },
+        exitTransition = { _, _ -> slideOutOfContainer(AnimatedContentScope.SlideDirection.Left, animationSpec = tween(400)) + fadeOut(animationSpec = tween(durationMillis = 50, delayMillis = 370)) }
     ) {
         composable(Routes.Dashboard.getFullPath()) { DashboardScreen(navController = navController) }
         composable(

@@ -13,9 +13,14 @@ import kotlinx.datetime.toJavaInstant
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 
-fun Number.formatCurrency(currencyCode: String): String? = runCatching {
+fun Number.formatCurrency(currencyCode: String? = null): String? = runCatching {
+
     val format = NumberFormat.getCurrencyInstance()
-    format.currency = Currency.getInstance(currencyCode)
+    format.currency = when {
+        currencyCode != null -> Currency.getInstance(currencyCode)
+        else -> Currency.getInstance(Locale.getDefault()) // let's assume that the base currency is the devices locale one
+    }
+
     format.format(this@formatCurrency)
 }.getOrNull()
 

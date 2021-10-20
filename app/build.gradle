@@ -99,6 +99,9 @@ dependencies {
     implementation("com.google.accompanist:accompanist-navigation-animation:$accompanist_version") {
         because("animated transitions between screens are yet not supported in jetpack compose navigation")
     }
+    implementation("com.google.accompanist:accompanist-insets:$accompanist_version") {
+        because("we want to have the size of the statusbar")
+    }
 
     // test
     testImplementation("junit:junit:4.13.2")

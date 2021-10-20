@@ -2,9 +2,12 @@ package xyz.izadi.adar.ui.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Icon
 import androidx.compose.material.ListItem
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.twotone.ExpandMore
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -17,10 +20,13 @@ fun AccountListItem(modifier: Modifier = Modifier, account: Account) {
     ListItem(
         modifier = modifier,
         text = { Text(text = account.name) },
-        trailing = {
+        secondaryText = {
             account.getLocalisedCurrentBalance()?.let {
                 Text(text = it)
             }
+        },
+        trailing = {
+            Icon(imageVector = Icons.TwoTone.ExpandMore, contentDescription = "")
         }
     )
 }

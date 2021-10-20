@@ -19,11 +19,20 @@ class DashboardViewModel @Inject constructor(
 ) : ViewModel() {
     val accounts: MutableStateFlow<Result<List<Account>>> = MutableStateFlow(Result.Loading)
 
+    val netWorth: MutableStateFlow<Double> = MutableStateFlow(0.0)
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
             fetchAccountsUseCase.invoke().collect { result ->
                 accounts.update { result }
+                (result as? Result.Success<List<Account>>)?.state?.let { accounts ->
+                    netWorth.update { calculateNetWorth(accounts) }
+                }
             }
         }
+    }
+
+    private fun calculateNetWorth(accounts: List<Account>): Double {
+        return accounts.sumOf { it.currentBalanceInBase }
     }
 }
