@@ -6,6 +6,7 @@ import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 
+// TODO: choose nice dark colors for the dark mode
 private val DarkColorPalette = darkColors(
     primary = Accent1_200,
     onPrimary = Accent1_800,

@@ -2,6 +2,11 @@ package xyz.izadi.adar.utils
 
 import android.content.res.Resources
 import androidx.annotation.RawRes
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ModalBottomSheetState
+import androidx.compose.material.ModalBottomSheetValue
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 import java.text.DateFormat.SHORT
 import java.text.DateFormat.getDateInstance
 import java.text.NumberFormat
@@ -35,3 +40,8 @@ inline fun <reified T> Resources.getObjectFromJson(@RawRes resourceId: Int, json
 fun Instant.formatShort(): String = runCatching {
     getDateInstance(SHORT, Locale.getDefault()).format(Date.from(this.toJavaInstant()))
 }.getOrDefault("")
+
+@ExperimentalMaterialApi
+fun ModalBottomSheetState.isExpandingOrExpanded() = this.targetValue == ModalBottomSheetValue.Expanded
+
+fun Int.toDp(): Dp = (this / Resources.getSystem().displayMetrics.density).toInt().dp
