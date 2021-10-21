@@ -1,4 +1,4 @@
-package xyz.izadi.adar.ui.components
+package xyz.izadi.adar.ui.components.dialogs
 
 import androidx.compose.material.AlertDialog
 import androidx.compose.material.ButtonDefaults

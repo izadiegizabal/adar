@@ -19,8 +19,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import xyz.izadi.adar.domain.entity.AccountWithTransactions
 import xyz.izadi.adar.domain.entity.Result
+import xyz.izadi.adar.domain.entity.Transaction
 import xyz.izadi.adar.screens.dashboard.ui.TransactionListItem
 import xyz.izadi.adar.screens.dashboard.ui.TransactionMonthHeader
+import xyz.izadi.adar.ui.components.lists.SwipeToDelete
 import xyz.izadi.adar.ui.components.sheet.ExpandableSheetHeader
 import xyz.izadi.adar.utils.getYearMonth
 import xyz.izadi.adar.utils.isExpandingOrExpanded
@@ -28,7 +30,12 @@ import xyz.izadi.adar.utils.isExpandingOrExpanded
 @ExperimentalAnimationApi
 @ExperimentalMaterialApi
 @Composable
-fun AccountSheetContent(accountWithTransactions: Result<AccountWithTransactions>, sheetState: ModalBottomSheetState, onExpandLess: () -> Unit) {
+fun AccountSheetContent(
+    accountWithTransactions: Result<AccountWithTransactions>,
+    sheetState: ModalBottomSheetState,
+    onExpandLess: () -> Unit,
+    onDismissTransaction: (Transaction) -> Unit
+) {
     val bgColor: Color by animateColorAsState(targetValue = if (sheetState.isExpandingOrExpanded()) MaterialTheme.colors.background else MaterialTheme.colors.surface)
 
     val account = (accountWithTransactions as? Result.Success<AccountWithTransactions>)?.state?.account
@@ -60,11 +67,17 @@ fun AccountSheetContent(accountWithTransactions: Result<AccountWithTransactions>
                                 month = entry.key.second,
                                 currencyCode = account?.currency,
                                 totalAmount = entry.value.sumOf { it.amount },
-                                modifier = Modifier.padding(start = 16.dp, top = 16.dp, end = 16.dp)
+                                modifier = Modifier.padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 4.dp)
                             )
                         }
-                        items(entry.value.sortedBy { it.date }) { transaction ->
-                            TransactionListItem(transaction = transaction, currencyCode = account?.currency)
+                        items(entry.value.sortedBy { it.date }, { it.id }) { transaction ->
+                            SwipeToDelete(onDismiss = { onDismissTransaction(transaction) }) {
+                                TransactionListItem(
+                                    transaction = transaction,
+                                    currencyCode = account?.currency,
+                                    modifier = Modifier.background(color = bgColor)
+                                )
+                            }
                         }
                     }
                 if (transactions.isEmpty()) {

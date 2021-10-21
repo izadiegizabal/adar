@@ -1,4 +1,4 @@
-package xyz.izadi.adar.ui.components
+package xyz.izadi.adar.ui.components.layouts
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column

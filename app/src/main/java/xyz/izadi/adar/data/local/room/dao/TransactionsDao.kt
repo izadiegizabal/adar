@@ -11,9 +11,12 @@ interface TransactionsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun saveTransactions(transactions: List<TransactionImpl>)
 
-    @Query("SELECT * FROM ${TransactionImpl.TABLE_NAME} WHERE accountId = :accountId ORDER BY date")
+    @Query("SELECT * FROM transactions WHERE accountId = :accountId ORDER BY date")
     fun getTransactionsForAccount(accountId: Int): List<TransactionImpl>
 
-    @Query("SELECT EXISTS(SELECT * FROM ${TransactionImpl.TABLE_NAME} WHERE accountId = :accountId)")
+    @Query("SELECT EXISTS(SELECT * FROM transactions WHERE accountId = :accountId)")
     fun doWeHaveTransactionsForAccount(accountId: Int): Boolean
+
+    @Query("DELETE FROM transactions WHERE id = :transaction")
+    fun delete(transaction: Int)
 }

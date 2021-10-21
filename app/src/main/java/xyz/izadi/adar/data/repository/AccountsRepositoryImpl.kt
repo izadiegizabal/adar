@@ -4,12 +4,14 @@ import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import xyz.izadi.adar.R
+import xyz.izadi.adar.data.local.TransactionImpl
 import xyz.izadi.adar.data.local.room.dao.AccountsDao
 import xyz.izadi.adar.data.local.room.dao.TransactionsDao
 import xyz.izadi.adar.data.network.AccountsResponse
 import xyz.izadi.adar.data.network.TransactionsResponse
 import xyz.izadi.adar.domain.entity.Account
 import xyz.izadi.adar.domain.entity.AccountWithTransactions
+import xyz.izadi.adar.domain.entity.Transaction
 import xyz.izadi.adar.domain.repository.AccountsRepository
 import xyz.izadi.adar.utils.getObjectFromJson
 
@@ -42,5 +44,17 @@ class AccountsRepositoryImpl @Inject constructor(
         }
         return accountsDao.getAccountWithTransactions(accountId)
     }
+
+    override suspend fun deleteTransaction(transactionId: Int) {
+        return transactionsDao.delete(transactionId)
+    }
+
+    override suspend fun addTransactions(transactions: List<Transaction>) {
+        val transImpl = transactions.map {
+            TransactionImpl(it.accountId, it.amount, it.categoryId, it.date, it.description, it.id)
+        }.toList()
+        return transactionsDao.saveTransactions(transImpl)
+    }
+
 
 }

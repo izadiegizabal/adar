@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 import xyz.izadi.adar.R
 import xyz.izadi.adar.domain.entity.Account
 import xyz.izadi.adar.domain.entity.Transaction
-import xyz.izadi.adar.ui.components.SimpleDismissDialog
+import xyz.izadi.adar.ui.components.dialogs.SimpleDismissDialog
 import xyz.izadi.adar.ui.components.text.Overline
 import xyz.izadi.adar.utils.getCountThisMonth
 

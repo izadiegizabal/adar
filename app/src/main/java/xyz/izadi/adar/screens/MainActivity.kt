@@ -8,7 +8,7 @@ import androidx.compose.material.ExperimentalMaterialApi
 import com.google.accompanist.insets.ProvideWindowInsets
 import dagger.hilt.android.AndroidEntryPoint
 import xyz.izadi.adar.screens.dashboard.DashboardScreen
-import xyz.izadi.adar.ui.components.Base
+import xyz.izadi.adar.ui.components.layouts.Base
 import xyz.izadi.adar.ui.theme.AdarTheme
 
 @ExperimentalMaterialApi

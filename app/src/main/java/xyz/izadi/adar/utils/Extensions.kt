@@ -21,6 +21,7 @@ import kotlinx.datetime.toJavaInstant
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
+import xyz.izadi.adar.domain.entity.Result
 import xyz.izadi.adar.domain.entity.Transaction
 
 fun Number.formatCurrency(currencyCode: String? = null): String? = runCatching {
@@ -76,4 +77,12 @@ fun List<Transaction>.getCountThisMonth(): Int = filter { trans -> trans.date.is
 fun Instant.getYearMonth(): Pair<Int, Month> {
     val given = this.toLocalDateTime(TimeZone.currentSystemDefault())
     return Pair(given.year, given.month)
+}
+
+fun Result<*>.runIfSuccess(enabled: Boolean = true, run: () -> Unit) {
+    if (enabled && this is Result.Success) {
+        run()
+    } else if (!enabled) {
+        run()
+    }
 }
