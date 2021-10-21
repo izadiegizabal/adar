@@ -1,4 +1,4 @@
-package xyz.izadi.adar.screens.dashboard.ui
+package xyz.izadi.adar.screens.dashboard.ui.accountsheet
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth

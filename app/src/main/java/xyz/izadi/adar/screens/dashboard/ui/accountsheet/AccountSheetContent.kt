@@ -1,4 +1,4 @@
-package xyz.izadi.adar.screens.account
+package xyz.izadi.adar.screens.dashboard.ui.accountsheet
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.animateColorAsState
@@ -6,6 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ExperimentalMaterialApi
@@ -15,14 +16,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
 import xyz.izadi.adar.domain.entity.AccountWithTransactions
 import xyz.izadi.adar.domain.entity.Result
-import xyz.izadi.adar.screens.dashboard.ui.AccountSheetHeader
-import xyz.izadi.adar.screens.dashboard.ui.ErrorState
-import xyz.izadi.adar.screens.dashboard.ui.LoadingState
-import xyz.izadi.adar.screens.dashboard.ui.NoTransactionsState
-import xyz.izadi.adar.ui.components.TransactionListItem
+import xyz.izadi.adar.screens.dashboard.ui.TransactionListItem
+import xyz.izadi.adar.screens.dashboard.ui.TransactionMonthHeader
 import xyz.izadi.adar.ui.components.sheet.ExpandableSheetHeader
+import xyz.izadi.adar.utils.getYearMonth
 import xyz.izadi.adar.utils.isExpandingOrExpanded
 
 @ExperimentalAnimationApi
@@ -50,9 +50,23 @@ fun AccountSheetContent(accountWithTransactions: Result<AccountWithTransactions>
         )
         transactions?.let {
             LazyColumn(modifier = Modifier.fillMaxWidth()) {
-                items(transactions) { transaction ->
-                    TransactionListItem(transaction = transaction, currencyCode = account?.currency)
-                }
+                transactions
+                    .groupBy { it.date.getYearMonth() }
+                    .toSortedMap(compareByDescending { pair -> pair.first + pair.second.value })
+                    .forEach { entry ->
+                        item {
+                            TransactionMonthHeader(
+                                year = entry.key.first,
+                                month = entry.key.second,
+                                currencyCode = account?.currency,
+                                totalAmount = entry.value.sumOf { it.amount },
+                                modifier = Modifier.padding(start = 16.dp, top = 16.dp, end = 16.dp)
+                            )
+                        }
+                        items(entry.value.sortedBy { it.date }) { transaction ->
+                            TransactionListItem(transaction = transaction, currencyCode = account?.currency)
+                        }
+                    }
                 if (transactions.isEmpty()) {
                     item {
                         NoTransactionsState()

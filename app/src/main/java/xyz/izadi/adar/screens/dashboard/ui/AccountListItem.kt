@@ -1,4 +1,4 @@
-package xyz.izadi.adar.ui.components
+package xyz.izadi.adar.screens.dashboard.ui
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.ExperimentalMaterialApi
