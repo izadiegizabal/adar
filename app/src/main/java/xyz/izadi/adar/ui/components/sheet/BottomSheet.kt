@@ -1,6 +1,8 @@
-package xyz.izadi.adar.screens.dashboard.ui
+package xyz.izadi.adar.ui.components.sheet
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetState
@@ -8,39 +10,32 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import xyz.izadi.adar.domain.entity.AccountWithTransactions
-import xyz.izadi.adar.domain.entity.Result
-import xyz.izadi.adar.screens.account.AccountSheetContent
 
 @ExperimentalAnimationApi
 @ExperimentalMaterialApi
 @Composable
-fun AccountSheet(
+fun BottomSheet(
     sheetState: ModalBottomSheetState,
     scope: CoroutineScope,
-    selectedAccountTransactions: Result<AccountWithTransactions>,
-    onHide: () -> Unit,
+    onHide: () -> Unit = {},
+    id: Any,
+    sheetContent: @Composable ColumnScope.() -> Unit,
     content: @Composable () -> Unit
 ) {
     if (!sheetState.isVisible) {
-        LaunchedEffect(selectedAccountTransactions) {
+        LaunchedEffect(id) {
             onHide()
+        }
+    } else {
+        BackHandler {
+            scope.launch {
+                sheetState.hide()
+            }
         }
     }
     ModalBottomSheetLayout(
         sheetState = sheetState,
-        sheetContent = {
-            AccountSheetContent(
-                accountWithTransactions = selectedAccountTransactions,
-                sheetState = sheetState,
-                onExpandLess = {
-                    scope.launch {
-                        sheetState.hide()
-                    }
-                }
-            )
-        }
-
+        sheetContent = sheetContent
     ) {
         content()
     }

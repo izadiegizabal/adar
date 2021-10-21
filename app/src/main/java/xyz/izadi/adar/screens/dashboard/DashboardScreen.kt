@@ -33,9 +33,10 @@ import kotlinx.coroutines.launch
 import xyz.izadi.adar.R
 import xyz.izadi.adar.domain.entity.Account
 import xyz.izadi.adar.domain.entity.Result
-import xyz.izadi.adar.screens.dashboard.ui.AccountSheet
+import xyz.izadi.adar.screens.account.AccountSheetContent
 import xyz.izadi.adar.ui.components.AccountListItem
 import xyz.izadi.adar.ui.components.Base
+import xyz.izadi.adar.ui.components.sheet.BottomSheet
 import xyz.izadi.adar.ui.components.text.Overline
 import xyz.izadi.adar.utils.formatCurrency
 
@@ -50,11 +51,22 @@ fun DashboardScreen(vm: DashboardViewModel = hiltViewModel()) {
     val accountSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
     val scope = rememberCoroutineScope()
 
-    AccountSheet(
+    BottomSheet(
         sheetState = accountSheetState,
         scope = scope,
-        selectedAccountTransactions = selectedAccountTransactions,
-        onHide = { vm.unselectAccount() }
+        onHide = { vm.unselectAccount() },
+        id = selectedAccountTransactions,
+        sheetContent = {
+            AccountSheetContent(
+                accountWithTransactions = selectedAccountTransactions,
+                sheetState = accountSheetState,
+                onExpandLess = {
+                    scope.launch {
+                        accountSheetState.hide()
+                    }
+                }
+            )
+        }
     ) {
         Base {
             Row(
@@ -96,7 +108,7 @@ fun DashboardScreen(vm: DashboardViewModel = hiltViewModel()) {
                                         )
                                     }
                                 }
-                                items(it.value.sortedBy { account -> account.name }) { account ->
+                                items(it.value) { account ->
                                     AccountListItem(
                                         account = account,
                                         modifier = Modifier.clickable {
