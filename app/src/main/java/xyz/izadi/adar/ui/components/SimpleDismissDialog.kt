@@ -7,6 +7,8 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import xyz.izadi.adar.R
 
 @Composable
 fun SimpleDismissDialog(text: String, onDismissRequest: () -> Unit) {
@@ -21,7 +23,7 @@ fun SimpleDismissDialog(text: String, onDismissRequest: () -> Unit) {
                     contentColor = MaterialTheme.colors.secondary
                 )
             ) {
-                Text(text = "OKAY")
+                Text(text = stringResource(R.string.dialog_generic_diminish).uppercase())
             }
         }
     )

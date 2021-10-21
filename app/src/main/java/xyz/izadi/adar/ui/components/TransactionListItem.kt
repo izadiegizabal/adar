@@ -11,17 +11,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import kotlinx.datetime.Instant
 import xyz.izadi.adar.data.local.TransactionImpl
 import xyz.izadi.adar.domain.entity.Transaction
+import xyz.izadi.adar.utils.Constants
 import xyz.izadi.adar.utils.formatShort
 
 @ExperimentalMaterialApi
 @Composable
-fun TransactionListItem(modifier: Modifier = Modifier, transaction: Transaction, currencyCode: String) {
+fun TransactionListItem(
+    modifier: Modifier = Modifier,
+    transaction: Transaction,
+    currencyCode: String? = Constants.DEFAULT_CURRENCY_CODE
+) {
     ListItem(
         modifier = modifier,
         text = { Text(text = transaction.description) },
         secondaryText = { Text(text = transaction.date.formatShort()) },
         trailing = {
-            transaction.getLocalisedAmount(currencyCode)?.let {
+            transaction.getLocalisedAmount(currencyCode ?: Constants.DEFAULT_CURRENCY_CODE)?.let {
                 Text(text = it)
             }
         }

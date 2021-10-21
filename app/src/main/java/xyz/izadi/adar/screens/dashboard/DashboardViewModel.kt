@@ -30,6 +30,8 @@ class DashboardViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             fetchAccountsUseCase.invoke().collect { result ->
                 accounts.update { result }
+
+                // if successful -> update the total net worth too
                 (result as? Result.Success<List<Account>>)?.state?.let { accounts ->
                     netWorth.update { calculateNetWorth(accounts) }
                 }

@@ -1,5 +1,15 @@
 <resources>
     <string name="app_name">Adar</string>
+
+    <!-- Dashboard -->
     <string name="db_total_net_worth">Net Worth</string>
     <string name="db_accounts_title">Accounts</string>
+
+    <!-- Transactions -->
+    <string name="tr_no_transactions_message">No transactions</string>
+    <string name="tr_error_transactions_message">Couldn\'t load transactions</string>
+
+    <!-- Others -->
+    <string name="dialog_generic_diminish">Okay</string>
+    <string name="dialog_monthly_transaction_count_explanation">Number of transactions this month</string>
 </resources>
