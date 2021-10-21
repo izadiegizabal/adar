@@ -13,7 +13,7 @@ interface AccountsDao {
     @Insert(onConflict = REPLACE)
     fun saveAccounts(accounts: List<AccountImpl>)
 
-    @Query("SELECT * FROM ${AccountImpl.TABLE_NAME}")
+    @Query("SELECT * FROM ${AccountImpl.TABLE_NAME} ORDER BY institution, name")
     fun getAccounts(): List<AccountImpl>
 
     @Transaction

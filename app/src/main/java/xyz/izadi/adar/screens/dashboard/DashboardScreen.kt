@@ -81,7 +81,7 @@ fun DashboardScreen(vm: DashboardViewModel = hiltViewModel()) {
                                     modifier = Modifier.padding(horizontal = 16.dp)
                                 )
                             }
-                            accounts.sortedBy { it.institution }.groupBy { it.institution }.forEach {
+                            accounts.groupBy { it.institution }.forEach {
                                 item {
                                     Row(
                                         modifier = Modifier.padding(start = 16.dp, top = 8.dp, end = 16.dp),
