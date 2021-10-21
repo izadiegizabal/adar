@@ -26,11 +26,11 @@ import kotlinx.coroutines.launch
 import xyz.izadi.adar.R
 import xyz.izadi.adar.domain.entity.Account
 import xyz.izadi.adar.domain.entity.Result
+import xyz.izadi.adar.screens.dashboard.ui.ErrorState
+import xyz.izadi.adar.screens.dashboard.ui.LoadingState
 import xyz.izadi.adar.screens.dashboard.ui.accounts.AccountListItem
 import xyz.izadi.adar.screens.dashboard.ui.accounts.AccountTitle
 import xyz.izadi.adar.screens.dashboard.ui.accounts.NetWorthHeader
-import xyz.izadi.adar.screens.dashboard.ui.transactions.ErrorState
-import xyz.izadi.adar.screens.dashboard.ui.transactions.LoadingState
 import xyz.izadi.adar.screens.dashboard.ui.transactions.sheet.TransactionsSheetContent
 import xyz.izadi.adar.ui.components.layouts.Base
 import xyz.izadi.adar.ui.components.sheet.BottomSheet

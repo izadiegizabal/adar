@@ -7,17 +7,12 @@ import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import java.text.DateFormat.SHORT
-import java.text.DateFormat.getDateInstance
 import java.text.NumberFormat
 import java.util.Currency
-import java.util.Date
-import java.util.Locale
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.datetime.Month
 import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toJavaInstant
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
@@ -42,10 +37,6 @@ inline fun <reified T> Resources.getObjectFromJson(@RawRes resourceId: Int, json
             json.decodeFromString(it)
         }
 }
-
-fun Instant.formatShort(): String = runCatching {
-    getDateInstance(SHORT, Locale.getDefault()).format(Date.from(this.toJavaInstant()))
-}.getOrDefault("")
 
 // Note: this is not ideal for internalization and should be checked had I have more time
 fun Instant.formatDay(): String = runCatching {

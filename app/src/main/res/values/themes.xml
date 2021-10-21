@@ -21,8 +21,4 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-
-    <style name="Theme.Adar.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="Theme.Adar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

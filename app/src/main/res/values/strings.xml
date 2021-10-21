@@ -9,7 +9,7 @@
     <!-- Transactions -->
     <string name="tr_no_transactions_message">No transactions</string>
     <string name="tr_error_transactions_message">Couldn\'t load transactions</string>
-    <string name="tr_month_header_date">"%s - %s"</string>
+    <string name="tr_month_header_date">"%1$s - %2$s"</string>
 
     <!-- Others -->
     <string name="dialog_generic_diminish">Okay</string>

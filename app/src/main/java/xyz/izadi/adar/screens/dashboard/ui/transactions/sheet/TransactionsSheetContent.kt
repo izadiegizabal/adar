@@ -22,9 +22,9 @@ import xyz.izadi.adar.R
 import xyz.izadi.adar.domain.entity.AccountWithTransactions
 import xyz.izadi.adar.domain.entity.Result
 import xyz.izadi.adar.domain.entity.Transaction
-import xyz.izadi.adar.screens.dashboard.ui.transactions.ErrorState
-import xyz.izadi.adar.screens.dashboard.ui.transactions.LoadingState
-import xyz.izadi.adar.screens.dashboard.ui.transactions.NoTransactionsState
+import xyz.izadi.adar.screens.dashboard.ui.ErrorState
+import xyz.izadi.adar.screens.dashboard.ui.LoadingState
+import xyz.izadi.adar.screens.dashboard.ui.NoTransactionsState
 import xyz.izadi.adar.screens.dashboard.ui.transactions.TransactionListItem
 import xyz.izadi.adar.screens.dashboard.ui.transactions.TransactionMonthHeader
 import xyz.izadi.adar.ui.components.lists.SwipeToDelete

@@ -18,9 +18,9 @@ class AddTransactionsUseCase @Inject constructor(
                 true
             } ?: throw Exception("Must send a transaction")
         }.onSuccess {
-            emit(xyz.izadi.adar.domain.entity.Result.Success(it))
+            emit(Result.Success(it))
         }.onFailure {
-            emit(xyz.izadi.adar.domain.entity.Result.Error(it))
+            emit(Result.Error(it))
         }
     }
 }
