@@ -1,4 +1,4 @@
-package xyz.izadi.adar.screens.dashboard.ui.accountsheet
+package xyz.izadi.adar.screens.dashboard.ui.transactions.sheet
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -29,12 +29,14 @@ import xyz.izadi.adar.ui.components.text.Overline
 import xyz.izadi.adar.utils.getCountThisMonth
 
 @Composable
-fun ColumnScope.AccountSheetHeader(account: Account, transactions: List<Transaction>) {
+fun ColumnScope.TransactionsSheetHeader(account: Account, transactions: List<Transaction>) {
     Column {
         Overline(text = account.institution)
         Text(text = account.name, style = MaterialTheme.typography.h6)
         Row(verticalAlignment = Alignment.Bottom, modifier = Modifier.padding(top = 4.dp)) {
             Text(text = account.getLocalisedCurrentBalance() ?: "", style = MaterialTheme.typography.h4)
+
+            // only show conversion in base if they are different currencies (and thus values)
             if (account.currentBalance != account.currentBalanceInBase) {
                 Overline(
                     text = account.getLocalisedCurrentBalanceInBase()?.let { "(${it})" } ?: "",

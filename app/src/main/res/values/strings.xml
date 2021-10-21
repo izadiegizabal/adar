@@ -4,6 +4,7 @@
     <!-- Dashboard -->
     <string name="db_total_net_worth">Net Worth</string>
     <string name="db_accounts_title">Accounts</string>
+    <string name="db_loading_error">Couldn\'t load accounts</string>
 
     <!-- Transactions -->
     <string name="tr_no_transactions_message">No transactions</string>

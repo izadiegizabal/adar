@@ -1,4 +1,4 @@
-package xyz.izadi.adar.screens.dashboard.ui.accountsheet
+package xyz.izadi.adar.screens.dashboard.ui.transactions
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -51,7 +51,7 @@ fun LoadingState() {
 }
 
 @Composable
-fun ErrorState() {
+fun ErrorState(errorMessage: String) {
     PaddedContentContainer {
         Icon(
             imageVector = Icons.TwoTone.Error,
@@ -59,6 +59,6 @@ fun ErrorState() {
             modifier = Modifier.size(36.dp),
             tint = MaterialTheme.colors.secondary
         )
-        Text(text = stringResource(R.string.tr_error_transactions_message), modifier = Modifier.padding(top = 16.dp))
+        Text(text = errorMessage, modifier = Modifier.padding(top = 16.dp))
     }
 }

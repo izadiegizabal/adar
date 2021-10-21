@@ -2,31 +2,21 @@ package xyz.izadi.adar.screens.dashboard
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.Scaffold
 import androidx.compose.material.SnackbarResult
-import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.twotone.Payments
 import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -36,12 +26,15 @@ import kotlinx.coroutines.launch
 import xyz.izadi.adar.R
 import xyz.izadi.adar.domain.entity.Account
 import xyz.izadi.adar.domain.entity.Result
-import xyz.izadi.adar.screens.dashboard.ui.AccountListItem
-import xyz.izadi.adar.screens.dashboard.ui.accountsheet.AccountSheetContent
+import xyz.izadi.adar.screens.dashboard.ui.accounts.AccountListItem
+import xyz.izadi.adar.screens.dashboard.ui.accounts.AccountTitle
+import xyz.izadi.adar.screens.dashboard.ui.accounts.NetWorthHeader
+import xyz.izadi.adar.screens.dashboard.ui.transactions.ErrorState
+import xyz.izadi.adar.screens.dashboard.ui.transactions.LoadingState
+import xyz.izadi.adar.screens.dashboard.ui.transactions.sheet.TransactionsSheetContent
 import xyz.izadi.adar.ui.components.layouts.Base
 import xyz.izadi.adar.ui.components.sheet.BottomSheet
 import xyz.izadi.adar.ui.components.text.Overline
-import xyz.izadi.adar.utils.formatCurrency
 
 @ExperimentalAnimationApi
 @ExperimentalMaterialApi
@@ -65,7 +58,7 @@ fun DashboardScreen(vm: DashboardViewModel = hiltViewModel()) {
             onHide = { vm.unselectAccount() },
             id = selectedAccountTransactions,
             sheetContent = {
-                AccountSheetContent(
+                TransactionsSheetContent(
                     accountWithTransactions = selectedAccountTransactions,
                     sheetState = accountSheetState,
                     onExpandLess = {
@@ -86,63 +79,41 @@ fun DashboardScreen(vm: DashboardViewModel = hiltViewModel()) {
             }
         ) {
             Base {
-                Row(
+                NetWorthHeader(
+                    netWorth = netWorth,
                     modifier = Modifier
                         .fillMaxWidth()
                         .statusBarsPadding()
-                        .padding(16.dp)
-                        .background(MaterialTheme.colors.primary, shape = MaterialTheme.shapes.large)
-                        .padding(16.dp)
-                ) {
-                    Column {
-                        Overline(text = stringResource(R.string.db_total_net_worth))
-                        AnimatedContent(targetState = netWorth.formatCurrency()) {
-                            Text(
-                                text = it ?: "",
-                                style = MaterialTheme.typography.h3.copy(color = MaterialTheme.colors.onBackground)
-                            )
-                        }
-                    }
-                }
+                )
                 AnimatedContent(targetState = accounts) { accounts ->
                     LazyColumn(modifier = Modifier.fillMaxWidth()) {
-                        when (accounts) {
-                            is Result.Success<List<Account>> -> (accounts as? Result.Success<List<Account>>)?.state?.let { accounts ->
+                        (accounts as? Result.Success<List<Account>>)?.state?.let { accounts ->
+                            item {
+                                Overline(text = stringResource(R.string.db_accounts_title), modifier = Modifier.padding(horizontal = 16.dp))
+                            }
+                            accounts.groupBy { it.institution }.forEach {
                                 item {
-                                    Overline(text = stringResource(R.string.db_accounts_title), modifier = Modifier.padding(horizontal = 16.dp))
+                                    AccountTitle(
+                                        title = it.key,
+                                        modifier = Modifier.padding(start = 16.dp, top = 8.dp, end = 16.dp)
+                                    )
                                 }
-                                accounts.groupBy { it.institution }.forEach {
-                                    item {
-                                        Row(
-                                            modifier = Modifier.padding(start = 16.dp, top = 8.dp, end = 16.dp),
-                                            verticalAlignment = Alignment.CenterVertically
-                                        ) {
-                                            Icon(imageVector = Icons.TwoTone.Payments, contentDescription = null, tint = MaterialTheme.colors.secondary)
-                                            Text(
-                                                text = it.key,
-                                                style = MaterialTheme.typography.h6,
-                                                modifier = Modifier.padding(start = 8.dp)
-                                            )
-                                        }
-                                    }
-                                    items(it.value) { account ->
-                                        AccountListItem(
-                                            account = account,
-                                            modifier = Modifier.clickable {
-                                                scope.launch {
-                                                    accountSheetState.show()
-                                                    vm.selectAccount(account.id)
-                                                }
+                                items(it.value) { account ->
+                                    AccountListItem(
+                                        account = account,
+                                        modifier = Modifier.clickable {
+                                            scope.launch {
+                                                accountSheetState.show()
+                                                vm.selectAccount(account.id)
                                             }
-                                        )
-                                    }
+                                        }
+                                    )
                                 }
                             }
-                            is Result.Loading -> item {
-                                CircularProgressIndicator()
-                            }
-                            else -> item {
-                                Text(text = "Error loading accounts: ${(accounts as? Result.Error)?.exception?.message}")
+                        } ?: item {
+                            when (accounts) {
+                                is Result.Loading -> LoadingState()
+                                else -> ErrorState(stringResource(R.string.db_loading_error))
                             }
                         }
                     }

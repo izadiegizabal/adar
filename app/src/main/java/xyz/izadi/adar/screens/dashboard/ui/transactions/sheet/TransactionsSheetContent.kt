@@ -1,4 +1,4 @@
-package xyz.izadi.adar.screens.dashboard.ui.accountsheet
+package xyz.izadi.adar.screens.dashboard.ui.transactions.sheet
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.animateColorAsState
@@ -16,12 +16,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import xyz.izadi.adar.R
 import xyz.izadi.adar.domain.entity.AccountWithTransactions
 import xyz.izadi.adar.domain.entity.Result
 import xyz.izadi.adar.domain.entity.Transaction
-import xyz.izadi.adar.screens.dashboard.ui.TransactionListItem
-import xyz.izadi.adar.screens.dashboard.ui.TransactionMonthHeader
+import xyz.izadi.adar.screens.dashboard.ui.transactions.ErrorState
+import xyz.izadi.adar.screens.dashboard.ui.transactions.LoadingState
+import xyz.izadi.adar.screens.dashboard.ui.transactions.NoTransactionsState
+import xyz.izadi.adar.screens.dashboard.ui.transactions.TransactionListItem
+import xyz.izadi.adar.screens.dashboard.ui.transactions.TransactionMonthHeader
 import xyz.izadi.adar.ui.components.lists.SwipeToDelete
 import xyz.izadi.adar.ui.components.sheet.ExpandableSheetHeader
 import xyz.izadi.adar.utils.getYearMonth
@@ -30,7 +35,7 @@ import xyz.izadi.adar.utils.isExpandingOrExpanded
 @ExperimentalAnimationApi
 @ExperimentalMaterialApi
 @Composable
-fun AccountSheetContent(
+fun TransactionsSheetContent(
     accountWithTransactions: Result<AccountWithTransactions>,
     sheetState: ModalBottomSheetState,
     onExpandLess: () -> Unit,
@@ -50,7 +55,7 @@ fun AccountSheetContent(
             sheetState = sheetState,
             title = {
                 if (account != null && transactions != null) {
-                    AccountSheetHeader(account = account, transactions = transactions)
+                    TransactionsSheetHeader(account = account, transactions = transactions)
                 }
             },
             onHide = onExpandLess
@@ -88,7 +93,7 @@ fun AccountSheetContent(
             }
         } ?: when (accountWithTransactions) {
             is Result.Loading -> LoadingState()
-            else -> ErrorState()
+            else -> ErrorState(stringResource(R.string.tr_error_transactions_message))
         }
     }
 }
