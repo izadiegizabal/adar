@@ -19,6 +19,6 @@ val Neutral1_100 = Color(0xffe6e1e5)
 
 
 val PrimaryGreen = Color(0xFFDBEA8D)
-val PrimaryVariantGreen = Color(0xFFe7edde)
-val BackgroundGreen = Color(0xFFE7EDDE)
+val PrimaryVariantGreen = Color(0xFFE7EDDE)
+val BackgroundGreen = Color(0xFFfdfdf6)
 

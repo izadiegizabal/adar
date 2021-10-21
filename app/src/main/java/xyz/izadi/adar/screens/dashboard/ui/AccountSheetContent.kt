@@ -1,7 +1,9 @@
 package xyz.izadi.adar.screens.account
 
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -21,7 +23,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import xyz.izadi.adar.domain.entity.AccountWithTransactions
 import xyz.izadi.adar.domain.entity.Result
-import xyz.izadi.adar.ui.components.Base
 import xyz.izadi.adar.ui.components.TransactionListItem
 import xyz.izadi.adar.ui.components.sheet.ExpandableSheetHeader
 
@@ -32,11 +33,14 @@ fun AccountSheetContent(accountWithTransactions: Result<AccountWithTransactions>
 
     val account = (accountWithTransactions as? Result.Success<AccountWithTransactions>)?.state?.account
 
-    Base {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colors.surface)
+    ) {
         ExpandableSheetHeader(
             sheetState = sheetState,
-            bgColor = MaterialTheme.colors.primary,
-            handleColor = MaterialTheme.colors.onPrimary,
+            handleColor = MaterialTheme.colors.onSurface,
             title = {
                 Text(text = account?.name ?: "")
                 Text(text = account?.getLocalisedCurrentBalance() ?: "")
