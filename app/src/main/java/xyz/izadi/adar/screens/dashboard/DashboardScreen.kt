@@ -25,15 +25,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.insets.statusBarsPadding
 import kotlinx.coroutines.launch
+import xyz.izadi.adar.R
 import xyz.izadi.adar.domain.entity.Account
 import xyz.izadi.adar.domain.entity.Result
 import xyz.izadi.adar.screens.dashboard.ui.AccountSheet
 import xyz.izadi.adar.ui.components.AccountListItem
 import xyz.izadi.adar.ui.components.Base
+import xyz.izadi.adar.ui.components.text.Overline
 import xyz.izadi.adar.utils.formatCurrency
 
 @ExperimentalAnimationApi
@@ -63,11 +66,13 @@ fun DashboardScreen(vm: DashboardViewModel = hiltViewModel()) {
                     .padding(16.dp)
             ) {
                 Column {
-                    Text(text = "NET WORTH", style = MaterialTheme.typography.overline)
-                    Text(
-                        text = "${netWorth.formatCurrency()}",
-                        style = MaterialTheme.typography.h3.copy(color = MaterialTheme.colors.onBackground)
-                    )
+                    Overline(text = stringResource(R.string.db_total_net_worth))
+                    AnimatedContent(targetState = netWorth.formatCurrency()) {
+                        Text(
+                            text = it ?: "",
+                            style = MaterialTheme.typography.h3.copy(color = MaterialTheme.colors.onBackground)
+                        )
+                    }
                 }
             }
             AnimatedContent(targetState = accounts) { accounts ->
@@ -75,11 +80,7 @@ fun DashboardScreen(vm: DashboardViewModel = hiltViewModel()) {
                     when (accounts) {
                         is Result.Success<List<Account>> -> (accounts as? Result.Success<List<Account>>)?.state?.let { accounts ->
                             item {
-                                Text(
-                                    text = "ACCOUNTS",
-                                    style = MaterialTheme.typography.overline,
-                                    modifier = Modifier.padding(horizontal = 16.dp)
-                                )
+                                Overline(text = stringResource(R.string.db_accounts_title), modifier = Modifier.padding(horizontal = 16.dp))
                             }
                             accounts.groupBy { it.institution }.forEach {
                                 item {

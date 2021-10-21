@@ -6,7 +6,6 @@ import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ExperimentalMaterialApi
@@ -44,14 +43,15 @@ fun ExpandableSheetHeader(
     ) {
         HandleRow(visible = !sheetState.isExpandingOrExpanded(), handleColor = handleColor)
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Column(
+            Row(
                 modifier = Modifier
+                    .weight(1f)
                     .padding(horizontal = 16.dp)
-                    .padding(vertical = 16.dp)
+                    .padding(vertical = 16.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 title()
             }
-            Spacer(modifier = Modifier.weight(1.0f))
             AnimatedVisibility(visible = sheetState.isExpandingOrExpanded()) {
                 IconButton(onClick = { onHide() }) {
                     Icon(Icons.TwoTone.ExpandMore, null)

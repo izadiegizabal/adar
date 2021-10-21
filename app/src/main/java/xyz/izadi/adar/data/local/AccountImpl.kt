@@ -6,6 +6,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import xyz.izadi.adar.data.local.AccountImpl.Companion.TABLE_NAME
 import xyz.izadi.adar.domain.entity.Account
+import xyz.izadi.adar.utils.Constants
 import xyz.izadi.adar.utils.formatCurrency
 
 @Entity(tableName = TABLE_NAME)
@@ -23,6 +24,10 @@ data class AccountImpl(
 ) : Account {
     override fun getLocalisedCurrentBalance(): String? {
         return currentBalance.formatCurrency(currency)
+    }
+
+    override fun getLocalisedCurrentBalanceInBase(): String? {
+        return currentBalanceInBase.formatCurrency(Constants.DEFAULT_CURRENCY_CODE)
     }
 
     companion object {

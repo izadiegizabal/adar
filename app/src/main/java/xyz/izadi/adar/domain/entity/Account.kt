@@ -11,4 +11,5 @@ interface Account : Serializable {
     val currentBalanceInBase: Double
 
     fun getLocalisedCurrentBalance(): String?
+    fun getLocalisedCurrentBalanceInBase(): String?
 }

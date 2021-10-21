@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Adar</string>
+    <string name="db_total_net_worth">Net Worth</string>
+    <string name="db_accounts_title">Accounts</string>
 </resources>

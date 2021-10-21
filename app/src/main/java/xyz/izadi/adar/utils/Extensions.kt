@@ -13,17 +13,21 @@ import java.text.NumberFormat
 import java.util.Currency
 import java.util.Date
 import java.util.Locale
+import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
+import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toJavaInstant
+import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
+import xyz.izadi.adar.domain.entity.Transaction
 
 fun Number.formatCurrency(currencyCode: String? = null): String? = runCatching {
 
     val format = NumberFormat.getCurrencyInstance()
     format.currency = when {
         currencyCode != null -> Currency.getInstance(currencyCode)
-        else -> Currency.getInstance(Locale.getDefault()) // let's assume that the base currency is the devices locale one
+        else -> Currency.getInstance(Constants.DEFAULT_CURRENCY_CODE) // let's assume that the base currency is the japanese yen, we could also take the locale one with Locale.getDefault()
     }
 
     format.format(this@formatCurrency)
@@ -45,3 +49,13 @@ fun Instant.formatShort(): String = runCatching {
 fun ModalBottomSheetState.isExpandingOrExpanded() = this.targetValue == ModalBottomSheetValue.Expanded
 
 fun Int.toDp(): Dp = (this / Resources.getSystem().displayMetrics.density).toInt().dp
+
+fun Instant.isCurrentMonth(): Boolean {
+    val given = this.toLocalDateTime(TimeZone.currentSystemDefault())
+    val current = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
+
+    return given.year == current.year &&
+            given.month == current.month
+}
+
+fun List<Transaction>.getCountThisMonth(): Int = filter { trans -> trans.date.isCurrentMonth() }.size
