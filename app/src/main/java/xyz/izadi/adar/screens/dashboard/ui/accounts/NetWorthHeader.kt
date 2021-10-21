@@ -26,11 +26,11 @@ fun NetWorthHeader(modifier: Modifier, netWorth: Number) {
             .padding(16.dp)
     ) {
         Column {
-            Overline(text = stringResource(R.string.db_total_net_worth))
+            Overline(text = stringResource(R.string.db_total_net_worth), color = MaterialTheme.colors.onPrimary)
             AnimatedContent(targetState = netWorth.formatCurrency()) {
                 Text(
                     text = it ?: "",
-                    style = MaterialTheme.typography.h3.copy(color = MaterialTheme.colors.onBackground)
+                    style = MaterialTheme.typography.h3.copy(color = MaterialTheme.colors.onPrimary)
                 )
             }
         }

@@ -11,9 +11,6 @@ interface TransactionsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun saveTransactions(transactions: List<TransactionImpl>)
 
-    @Query("SELECT * FROM transactions WHERE accountId = :accountId ORDER BY date")
-    fun getTransactionsForAccount(accountId: Int): List<TransactionImpl>
-
     @Query("SELECT EXISTS(SELECT * FROM transactions WHERE accountId = :accountId)")
     fun doWeHaveTransactionsForAccount(accountId: Int): Boolean
 
