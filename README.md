@@ -5,6 +5,10 @@
 Adar -_branch in the basque language_- is the name of my little lil version of Moneytree. Built using __Android Compose__ and following the generally
 recommended [architecture](https://developer.android.com/jetpack/guide). Hope you like it!
 
+## How to try it
+
+Download the apk in the root folder or build the project normally! 🌱 ✨
+
 ## Understanding how I work
 
 For this challenge I've tried to use very modern android development architecture and components, not only for showcasing that I can adapt to new frameworks and technologies but also for my own
@@ -18,8 +22,7 @@ JSON mapping) and a domain layer with use cases to provide an extra level of dec
 
 Besides, I've used Hilt for the Dependency Injection and flow with coroutines for the concurrency.
 
-I've been able to finish most user stories (except the 5th) so I would be adding that if I had more time. Besides, more importantly, I would improve the test cases, since I tried to squish in more
-features with the downside of worse code coverage.
+I've been able to finish most user stories (except the 5th) so I would be adding that if I had more time. Besides, more importantly, I would improve the test cases, since I tried to squish in more features with the downside of worse code coverage. Plus documentation, it currently lacks any real documentation, so I would most definitely be adding that.
 
 On a similar note, had I had more time, I would polish the remove transaction feature since it currently doesn't update the accounts balances.
 
@@ -44,7 +47,7 @@ issue.
 
 Besides, the Android Studio's analyzer found the following issue, but despite detecting it being unused, it is neccessary for hilt to know how to inject the repository:
 
-<img src="https://i.imgur.com/8FXRQJs.png" alt="Suggestion for deleting the repository @Bind" style="height:156px">
+<img src="https://i.imgur.com/8FXRQJs.png" alt="Suggestion for deleting the repository @Bind" style="height:137px">
 
 
 ## Testing
@@ -55,7 +58,7 @@ I've tried unit testing as much as the time allowed. Mainly focused on the data 
 
 For integration tests, I didn't have much time, but I wrote a couple of sample UI tests to try testing Jetpack Compose UI.
 
-<img src="https://i.imgur.com/B0DIDUX.png" alt="UI Testing Screenshot" style="height:156px">
+<img src="https://i.imgur.com/7k1FjmJ.png" alt="UI Testing Screenshot" style="height:232px">
 
 ## Accessibility
 
