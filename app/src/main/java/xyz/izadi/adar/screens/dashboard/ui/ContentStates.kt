@@ -14,6 +14,7 @@ import androidx.compose.material.icons.twotone.Savings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import xyz.izadi.adar.R
@@ -36,7 +37,9 @@ fun NoTransactionsState() {
         Icon(
             imageVector = Icons.TwoTone.Savings,
             contentDescription = stringResource(R.string.cd_no_transactions_icon),
-            modifier = Modifier.size(36.dp),
+            modifier = Modifier
+                .size(36.dp)
+                .testTag("Piggy Icon"),
             tint = MaterialTheme.colors.secondary
         )
         Text(text = stringResource(R.string.tr_no_transactions_message), modifier = Modifier.padding(top = 16.dp))
@@ -46,7 +49,7 @@ fun NoTransactionsState() {
 @Composable
 fun LoadingState() {
     PaddedContentContainer {
-        CircularProgressIndicator()
+        CircularProgressIndicator(modifier = Modifier.testTag("ProgressIndicator"))
     }
 }
 
@@ -56,7 +59,9 @@ fun ErrorState(errorMessage: String) {
         Icon(
             imageVector = Icons.TwoTone.Error,
             contentDescription = stringResource(R.string.cd_generic_error_icon),
-            modifier = Modifier.size(36.dp),
+            modifier = Modifier
+                .size(36.dp)
+                .testTag("Error Icon"),
             tint = MaterialTheme.colors.secondary
         )
         Text(text = errorMessage, modifier = Modifier.padding(top = 16.dp))
