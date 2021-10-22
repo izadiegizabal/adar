@@ -28,8 +28,7 @@ import xyz.izadi.adar.testutils.CoroutineTestRule
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
 class AccountsRepositoryImplTest : TestCase() {
-    @Rule
-    @JvmField
+    @get:Rule
     val coroutineTestRule = CoroutineTestRule()
 
     @Mock
@@ -43,6 +42,7 @@ class AccountsRepositoryImplTest : TestCase() {
 
     private lateinit var sut: AccountsRepository
 
+    /// Default sample data /////
     private val testAccounts = listOf(
         AccountImpl(id = 1, name = "Savings", institution = "UFJ", currency = "JPY", currentBalance = 1234.4, currentBalanceInBase = 1234.4)
     )
@@ -60,8 +60,8 @@ class AccountsRepositoryImplTest : TestCase() {
             )
         )
     )
-
     private val testAccountId = 1
+    ////////////////////////////
 
     @Before
     fun setup() {
