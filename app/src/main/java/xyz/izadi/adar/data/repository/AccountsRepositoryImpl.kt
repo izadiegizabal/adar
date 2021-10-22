@@ -1,7 +1,6 @@
 package xyz.izadi.adar.data.repository
 
 import javax.inject.Inject
-import xyz.izadi.adar.R
 import xyz.izadi.adar.data.local.TransactionImpl
 import xyz.izadi.adar.data.local.room.dao.AccountsDao
 import xyz.izadi.adar.data.local.room.dao.TransactionsDao

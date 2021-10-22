@@ -1,7 +1,6 @@
 package xyz.izadi.adar.domain.usecase
 
 import javax.inject.Inject
-import kotlin.jvm.Throws
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import xyz.izadi.adar.domain.entity.AccountWithTransactions

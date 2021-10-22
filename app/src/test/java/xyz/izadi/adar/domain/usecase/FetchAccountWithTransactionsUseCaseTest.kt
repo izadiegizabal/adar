@@ -19,7 +19,6 @@ import xyz.izadi.adar.data.local.AccountWithTransactionsImpl
 import xyz.izadi.adar.data.local.TransactionImpl
 import xyz.izadi.adar.data.repository.AccountsRepositoryImpl
 import xyz.izadi.adar.domain.entity.NotEnoughInformationException
-import xyz.izadi.adar.domain.usecase.Result
 import xyz.izadi.adar.testutils.CoroutineTestRule
 
 @ExperimentalCoroutinesApi

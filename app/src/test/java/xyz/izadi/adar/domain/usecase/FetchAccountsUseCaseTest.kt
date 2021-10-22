@@ -14,7 +14,6 @@ import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
 import xyz.izadi.adar.data.local.AccountImpl
 import xyz.izadi.adar.data.repository.AccountsRepositoryImpl
-import xyz.izadi.adar.domain.usecase.Result
 import xyz.izadi.adar.testutils.CoroutineTestRule
 
 @ExperimentalCoroutinesApi

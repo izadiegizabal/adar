@@ -3,7 +3,6 @@ package xyz.izadi.adar.data.repository
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
-import kotlin.jvm.Throws
 import xyz.izadi.adar.R
 import xyz.izadi.adar.data.local.AccountImpl
 import xyz.izadi.adar.data.local.TransactionImpl
