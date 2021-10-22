@@ -20,7 +20,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import xyz.izadi.adar.R
 import xyz.izadi.adar.domain.entity.AccountWithTransactions
-import xyz.izadi.adar.domain.entity.Result
+import xyz.izadi.adar.domain.usecase.Result
 import xyz.izadi.adar.domain.entity.Transaction
 import xyz.izadi.adar.screens.dashboard.ui.ErrorState
 import xyz.izadi.adar.screens.dashboard.ui.LoadingState

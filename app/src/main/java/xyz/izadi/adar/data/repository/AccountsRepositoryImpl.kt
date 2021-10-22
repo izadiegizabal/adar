@@ -27,14 +27,7 @@ class AccountsRepositoryImpl @Inject constructor(
 
     override suspend fun getAccountWithTransactions(accountId: Int): AccountWithTransactions {
         if (!transactionsDao.doWeHaveTransactionsForAccount(accountId = accountId)) {
-            val transactions = dataLoader.getTransactions(
-                resId = when (accountId) {
-                    1 -> R.raw.transactions_1
-                    2 -> R.raw.transactions_2
-                    3 -> R.raw.transactions_3
-                    else -> throw Exception("No transactions for this") // TODO: create proper exception
-                }
-            )
+            val transactions = dataLoader.getTransactions(accountId)
             transactionsDao.saveTransactions(transactions)
         }
         return accountsDao.getAccountWithTransactions(accountId)

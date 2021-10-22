@@ -1,14 +1,15 @@
 package xyz.izadi.adar.data.repository
 
 import android.content.Context
-import androidx.annotation.RawRes
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
+import kotlin.jvm.Throws
 import xyz.izadi.adar.R
 import xyz.izadi.adar.data.local.AccountImpl
 import xyz.izadi.adar.data.local.TransactionImpl
 import xyz.izadi.adar.data.network.AccountsResponse
 import xyz.izadi.adar.data.network.TransactionsResponse
+import xyz.izadi.adar.domain.entity.NoTransactionsException
 import xyz.izadi.adar.utils.getObjectFromJson
 
 class DataLoader @Inject constructor(
@@ -20,7 +21,14 @@ class DataLoader @Inject constructor(
         return resources.getObjectFromJson<AccountsResponse>(R.raw.accounts).accounts
     }
 
-    fun getTransactions(@RawRes resId: Int): List<TransactionImpl> {
+    @Throws(NoTransactionsException::class)
+    fun getTransactions(accountId: Int): List<TransactionImpl> {
+        val resId = when (accountId) {
+            1 -> R.raw.transactions_1
+            2 -> R.raw.transactions_2
+            3 -> R.raw.transactions_3
+            else -> throw NoTransactionsException()
+        }
         return resources.getObjectFromJson<TransactionsResponse>(resId).transactions
     }
 }

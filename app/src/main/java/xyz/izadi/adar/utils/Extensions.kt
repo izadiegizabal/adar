@@ -16,7 +16,7 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import xyz.izadi.adar.domain.entity.Result
+import xyz.izadi.adar.domain.usecase.Result
 import xyz.izadi.adar.domain.entity.Transaction
 
 fun Number.formatCurrency(currencyCode: String? = null): String? = runCatching {

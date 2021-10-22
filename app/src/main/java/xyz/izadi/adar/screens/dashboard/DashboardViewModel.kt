@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import xyz.izadi.adar.domain.entity.Account
 import xyz.izadi.adar.domain.entity.AccountWithTransactions
-import xyz.izadi.adar.domain.entity.Result
+import xyz.izadi.adar.domain.usecase.Result
 import xyz.izadi.adar.domain.entity.Transaction
 import xyz.izadi.adar.domain.usecase.AddTransactionsUseCase
 import xyz.izadi.adar.domain.usecase.DeleteTransactionUseCase

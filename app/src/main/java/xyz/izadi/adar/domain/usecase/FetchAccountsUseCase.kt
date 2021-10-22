@@ -4,7 +4,6 @@ import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import xyz.izadi.adar.domain.entity.Account
-import xyz.izadi.adar.domain.entity.Result
 import xyz.izadi.adar.domain.repository.AccountsRepository
 
 class FetchAccountsUseCase @Inject constructor(

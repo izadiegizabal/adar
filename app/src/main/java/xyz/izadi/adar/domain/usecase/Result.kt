@@ -1,4 +1,4 @@
-package xyz.izadi.adar.domain.entity
+package xyz.izadi.adar.domain.usecase
 
 sealed class Result<out T : Any> {
     data class Success<out T : Any>(val state: T) : Result<T>()
