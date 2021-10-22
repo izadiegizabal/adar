@@ -13,3 +13,5 @@ interface Transaction : Serializable {
 
     fun getLocalisedAmount(currencyCode: String): String?
 }
+
+fun List<Transaction>.getCountThisMonth(): Int = filter { trans -> trans.date.isCurrentMonth() }.size

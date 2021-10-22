@@ -23,10 +23,10 @@ import kotlinx.datetime.Month
 import xyz.izadi.adar.R
 import xyz.izadi.adar.data.local.TransactionImpl
 import xyz.izadi.adar.domain.entity.Transaction
+import xyz.izadi.adar.domain.entity.formatDay
 import xyz.izadi.adar.ui.components.text.BoldOverline
 import xyz.izadi.adar.utils.Constants
 import xyz.izadi.adar.utils.formatCurrency
-import xyz.izadi.adar.utils.formatDay
 
 @ExperimentalMaterialApi
 @Composable

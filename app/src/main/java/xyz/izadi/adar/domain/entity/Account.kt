@@ -13,3 +13,5 @@ interface Account : Serializable {
     fun getLocalisedCurrentBalance(): String?
     fun getLocalisedCurrentBalanceInBase(): String?
 }
+
+fun List<Account>.calculateNetWorth(): Double = sumOf { it.currentBalanceInBase }

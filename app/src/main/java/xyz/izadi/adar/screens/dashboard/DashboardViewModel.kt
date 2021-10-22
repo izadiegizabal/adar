@@ -1,5 +1,6 @@
 package xyz.izadi.adar.screens.dashboard
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,13 +13,14 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import xyz.izadi.adar.domain.entity.Account
 import xyz.izadi.adar.domain.entity.AccountWithTransactions
-import xyz.izadi.adar.domain.usecase.Result
 import xyz.izadi.adar.domain.entity.Transaction
+import xyz.izadi.adar.domain.entity.calculateNetWorth
 import xyz.izadi.adar.domain.usecase.AddTransactionsUseCase
 import xyz.izadi.adar.domain.usecase.DeleteTransactionUseCase
 import xyz.izadi.adar.domain.usecase.FetchAccountWithTransactionsUseCase
 import xyz.izadi.adar.domain.usecase.FetchAccountsUseCase
-import xyz.izadi.adar.utils.runIfSuccess
+import xyz.izadi.adar.domain.usecase.Result
+import xyz.izadi.adar.domain.usecase.runIfSuccess
 
 @HiltViewModel
 class DashboardViewModel @Inject constructor(
@@ -29,7 +31,6 @@ class DashboardViewModel @Inject constructor(
 ) : ViewModel() {
     val accounts: MutableStateFlow<Result<List<Account>>> = MutableStateFlow(Result.Loading)
     val selectedAccountTransactions: MutableStateFlow<Result<AccountWithTransactions>> = MutableStateFlow(Result.Loading)
-
     val netWorth: MutableStateFlow<Double> = MutableStateFlow(0.0)
 
     init {
@@ -38,7 +39,8 @@ class DashboardViewModel @Inject constructor(
         }
     }
 
-    private suspend fun fetchAccounts(updateOnlyIfSuccess: Boolean = false) = withContext(Dispatchers.IO) {
+    @VisibleForTesting
+    suspend fun fetchAccounts(updateOnlyIfSuccess: Boolean = false) = withContext(Dispatchers.IO) {
         fetchAccountsUseCase.invoke().collect { result ->
             result.runIfSuccess(updateOnlyIfSuccess) {
                 accounts.update { result }
@@ -46,14 +48,9 @@ class DashboardViewModel @Inject constructor(
 
             // if successful -> update the total net worth too
             (result as? Result.Success<List<Account>>)?.state?.let { accounts ->
-                netWorth.update { calculateNetWorth(accounts) }
+                netWorth.update { accounts.calculateNetWorth() }
             }
         }
-        fetchAccountWithTransactionsUseCase.invoke()
-    }
-
-    private fun calculateNetWorth(accounts: List<Account>): Double {
-        return accounts.sumOf { it.currentBalanceInBase }
     }
 
     suspend fun selectAccount(accountId: Int, updateOnlyIfSuccess: Boolean = false) = withContext(Dispatchers.IO) {
@@ -78,7 +75,7 @@ class DashboardViewModel @Inject constructor(
     }
 
     suspend fun restoreTransaction(transaction: Transaction) = withContext(Dispatchers.IO) {
-        addTransactionsUseCase.invoke(transaction).collect { result ->
+        addTransactionsUseCase.invoke(listOf(transaction)).collect { result ->
             if (result is Result.Success) {
                 updateLocalData(transaction.accountId)
             }

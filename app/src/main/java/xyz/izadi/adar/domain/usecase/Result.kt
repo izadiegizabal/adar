@@ -5,3 +5,11 @@ sealed class Result<out T : Any> {
     object Loading : Result<Nothing>()
     data class Error(val exception: Throwable) : Result<Nothing>()
 }
+
+fun Result<*>.runIfSuccess(enabled: Boolean = true, run: () -> Unit) {
+    if (enabled && this is Result.Success) {
+        run()
+    } else if (!enabled) {
+        run()
+    }
+}
