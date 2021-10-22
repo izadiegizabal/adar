@@ -14,4 +14,12 @@
     <!-- Others -->
     <string name="dialog_generic_diminish">Okay</string>
     <string name="dialog_monthly_transaction_count_explanation">Number of transactions this month</string>
+
+    <!-- Content Description -->
+    <string name="cd_transaction_counter_icon">Icon for the Transaction Counter</string>
+    <string name="cd_no_transactions_icon">Piggy bank icon</string>
+    <string name="cd_generic_error_icon">Generic Error Icon</string>
+    <string name="cd_expand_more_icon">Expand More Icon</string>
+    <string name="cd_account_header_icon">Account Header Icon</string>
+    <string name="cd_trashcan_icon">Trashcan Icon</string>
 </resources>

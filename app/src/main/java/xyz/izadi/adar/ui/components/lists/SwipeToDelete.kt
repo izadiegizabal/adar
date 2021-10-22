@@ -21,7 +21,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import xyz.izadi.adar.R
 
 @ExperimentalMaterialApi
 @Composable
@@ -65,7 +67,7 @@ fun SwipeToDeleteBackground(dismissState: DismissState) {
         Icon(
             imageVector = Icons.TwoTone.Delete,
             tint = MaterialTheme.colors.onSecondary,
-            contentDescription = null,
+            contentDescription = stringResource(R.string.cd_trashcan_icon),
             modifier = Modifier.scale(scale)
         )
     }

@@ -35,7 +35,7 @@ fun NoTransactionsState() {
     PaddedContentContainer {
         Icon(
             imageVector = Icons.TwoTone.Savings,
-            contentDescription = "",
+            contentDescription = stringResource(R.string.cd_no_transactions_icon),
             modifier = Modifier.size(36.dp),
             tint = MaterialTheme.colors.secondary
         )
@@ -55,7 +55,7 @@ fun ErrorState(errorMessage: String) {
     PaddedContentContainer {
         Icon(
             imageVector = Icons.TwoTone.Error,
-            contentDescription = "",
+            contentDescription = stringResource(R.string.cd_generic_error_icon),
             modifier = Modifier.size(36.dp),
             tint = MaterialTheme.colors.secondary
         )

@@ -19,8 +19,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.LocalWindowInsets
+import xyz.izadi.adar.R
 import xyz.izadi.adar.utils.isExpandingOrExpanded
 import xyz.izadi.adar.utils.toDp
 
@@ -54,7 +56,7 @@ fun ExpandableSheetHeader(
             }
             AnimatedVisibility(visible = sheetState.isExpandingOrExpanded()) {
                 IconButton(onClick = { onHide() }) {
-                    Icon(Icons.TwoTone.ExpandMore, null)
+                    Icon(Icons.TwoTone.ExpandMore, stringResource(id = R.string.cd_expand_more_icon))
                 }
             }
         }

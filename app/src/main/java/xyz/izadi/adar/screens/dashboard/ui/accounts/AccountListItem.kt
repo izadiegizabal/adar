@@ -16,8 +16,10 @@ import androidx.compose.material.icons.twotone.Payments
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import xyz.izadi.adar.R
 import xyz.izadi.adar.data.local.AccountImpl
 import xyz.izadi.adar.domain.entity.Account
 
@@ -33,7 +35,7 @@ fun AccountListItem(modifier: Modifier = Modifier, account: Account) {
             }
         },
         trailing = {
-            Icon(imageVector = Icons.TwoTone.ExpandMore, contentDescription = "")
+            Icon(imageVector = Icons.TwoTone.ExpandMore, contentDescription = stringResource(R.string.cd_expand_more_icon))
         }
     )
 }
@@ -44,7 +46,7 @@ fun AccountTitle(modifier: Modifier = Modifier, title: String) {
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Icon(imageVector = Icons.TwoTone.Payments, contentDescription = null, tint = MaterialTheme.colors.secondary)
+        Icon(imageVector = Icons.TwoTone.Payments, contentDescription = stringResource(R.string.cd_account_header_icon), tint = MaterialTheme.colors.secondary)
         Text(
             text = title,
             style = MaterialTheme.typography.h6.copy(color = MaterialTheme.colors.onBackground),

@@ -60,7 +60,7 @@ fun TransactionCounter(count: Int) {
             .padding(16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Icon(imageVector = Icons.TwoTone.DateRange, contentDescription = null, modifier = Modifier.padding(end = 4.dp))
+        Icon(imageVector = Icons.TwoTone.DateRange, contentDescription = stringResource(R.string.cd_transaction_counter_icon), modifier = Modifier.padding(end = 4.dp))
         Text(text = count.toString())
     }
 
