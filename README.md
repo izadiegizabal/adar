@@ -1,24 +1,27 @@
 # Adar
+
 <img src="https://i.imgur.com/nSbfDUM.png" alt="Adar App Icon" style="height:96px">
 
-Adar -_branch in the basque language_- is the name of my little lil version of Monetree. Built using __Android Compose__ and following the generally recommended [architecture](https://developer.android.com/jetpack/guide). Hope you like it! 
+Adar -_branch in the basque language_- is the name of my little lil version of Moneytree. Built using __Android Compose__ and following the generally
+recommended [architecture](https://developer.android.com/jetpack/guide). Hope you like it!
 
 ## Understanding how I work
 
-For this challenge I've tried to use very modern android development architecture and components, not only for showcasing that I can adapt to new framework and technologies but also for my own
-experimentation and seeing what's next to come. It's been fun playing with colors and transitions!
+For this challenge I've tried to use very modern android development architecture and components, not only for showcasing that I can adapt to new frameworks and technologies but also for my own
+experimentation and seeing what's next to come. It's been fun playing with colours and transitions!
 
-For that, as the base for the UI I have used Jetpack Compose (with the State Hoisting pattern for the State Management) and tried to emulate Material You style without the dynamic color
+For that, as the base for the UI, I have used Jetpack Compose (with the State Hoisting pattern for the State Management) and tried to emulate the Material You style without the dynamic colour
 functionality (since I don't own a Pixel to try it).
 
-For the architecture side of things, I've tried to separate the things following a MVVM pattern, alongside a repository pattern (using Room for the local storage and Kotlinx's Serialization for the
+For the architecture side of things, I've tried to separate the things following an MVVM pattern, alongside a repository pattern (using Room for the local storage and Kotlinx's Serialization for the
 JSON mapping) and a domain layer with use cases to provide an extra level of decoupling of the data.
 
 Besides, I've used Hilt for the Dependency Injection and flow with coroutines for the concurrency.
 
-I've been able to finish most user stories (except the 5th) so I would be adding that if I had more time. Besides, more importantly, I would improve the test cases, since I tried to squish in more features with the downside of worse code coverage.
+I've been able to finish most user stories (except the 5th) so I would be adding that if I had more time. Besides, more importantly, I would improve the test cases, since I tried to squish in more
+features with the downside of worse code coverage.
 
-In a similar note, had I have more time, I would polish the remove transaction feature since it seems a bit flimsy in the current state. 🏹 🐛
+On a similar note, had I had more time, I would polish the remove transaction feature since it currently doesn't update the accounts balances.
 
 ## No warnings
 
@@ -36,10 +39,16 @@ FAILURE: Build failed with an exception.
 > java.lang.reflect.InvocationTargetException (no error message)
 ```
 
-It seems related to some annotation processor (`kapt`), therefore I would assume that it is related to either Hilt or Room, but I after checking their usage, I couldn't find what could be causing the
+It seems related to some annotation processor (`kapt`), therefore I would assume that it is related to either Hilt or Room, but after checking their usage, I couldn't find what could be causing the
 issue.
 
+Besides, the Android Studio's analyzer found the following issue, but despite detecting it being unused, it is neccessary for hilt to know how to inject the repository:
+
+<img src="https://i.imgur.com/8FXRQJs.png" alt="Suggestion for deleting the repository @Bind" style="height:156px">
+
+
 ## Testing
+
 I've tried unit testing as much as the time allowed. Mainly focused on the data manipulation part (repository / use cases / view model).
 
 <img src="https://i.imgur.com/qzRR8x2.png" alt="UI Testing Screenshot" style="height:156px">
@@ -48,10 +57,9 @@ For integration tests, I didn't have much time, but I wrote a couple of sample U
 
 <img src="https://i.imgur.com/B0DIDUX.png" alt="UI Testing Screenshot" style="height:156px">
 
-
 ## Accessibility
 
-High contrast colours + content descriptions have been used thoughout the app. Touch targets are big and the interface is easy to use. The accessibility has been validated with Google's Accessibility
+High contrast colours + content descriptions have been used throughout the app. Touch targets are big and the interface is easy to use. The accessibility has been validated with Google's Accessibility
 Scanner (no issues were found) for both the light and dark themes.
 
 <img src="https://i.imgur.com/CLxBm3V.jpg" alt="Accessibility Scanner Screenshot" style="width:256px">
