@@ -7,7 +7,7 @@ recommended [architecture](https://developer.android.com/jetpack/guide). Hope yo
 
 ## How to try it
 
-Download the apk in the root folder or build the project normally! 🌱 ✨
+Download the [apk](https://github.com/izadiegizabal/adar/blob/master/adar-0.1-debug.apk) in the root folder or build the project normally! 🌱 ✨
 
 ## Understanding how I work
 
