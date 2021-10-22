@@ -75,7 +75,8 @@ fun TransactionsSheetContent(
                                 modifier = Modifier.padding(start = 16.dp, top = 16.dp, end = 16.dp, bottom = 4.dp)
                             )
                         }
-                        items(entry.value.sortedBy { it.date }, { it.id }) { transaction ->
+                        val sortedTransactions = entry.value.sortedBy { it.date }
+                        items(items = sortedTransactions, key = { it.id }) { transaction ->
                             SwipeToDelete(onDismiss = { onDismissTransaction(transaction) }) {
                                 TransactionListItem(
                                     transaction = transaction,

@@ -30,12 +30,10 @@ import xyz.izadi.adar.R
 fun SwipeToDelete(onDismiss: () -> Unit, content: @Composable () -> Unit) {
     val dismissState = rememberDismissState(
         confirmStateChange = {
-            it != DismissValue.DismissedToEnd
+            if (it == DismissValue.DismissedToStart) onDismiss()
+            it != DismissValue.DismissedToStart
         }
     )
-    if (dismissState.isDismissed(DismissDirection.EndToStart)) {
-        onDismiss()
-    }
     SwipeToDismiss(
         state = dismissState,
         directions = setOf(DismissDirection.EndToStart),
